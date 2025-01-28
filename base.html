@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexágono Stats Pokémon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(18, 22, 33);
+        }
+
+        .hexagon-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+        }
+
+        .hexagon-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hexagon-container text {
+            font-size: 8px;
+            color: rgb(250, 199, 106);
+            text-anchor: middle;
+            fill: rgb(250, 199, 106);
+        }
+
+        .stat-area {
+            fill: rgb(255, 230, 183);
+            fill-opacity: 70%;
+            stroke: rgb(250, 199, 106);
+            stroke-width: 2;
+        }
+
+        .grid {
+            fill: none;
+            stroke: #ddd;
+            stroke-width: 1.2;
+        }
+    </style>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <input type="text" id="pokemonInput" placeholder="Escribe el nombre o ID">
+    <button id="pulsado">Buscar</button>
+    <br/>
+
+    <div class="hexagon-container">
+        <svg viewBox="-120 -120 240 240">
+            <!-- Etiquetas -->
+            <text x="0" y="-95" class="label">HP</text>
+            <text x="95" y="-50" class="label">Ataque</text>
+            <text x="95" y="55" class="label">Defensa</text>
+            <text x="-95" y="-50" class="label">Atq. Esp.</text>
+            <text x="-95" y="55" class="label">Def. Esp.</text>
+            <text x="0" y="100" class="label">Velocidad</text>
+
+            <!-- Grilla del hexágono -->
+            <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45" class="grid"></polygon>
+            <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30" class="grid"></polygon>
+            <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" class="grid"></polygon>
+
+            <!-- Relleno de las estadísticas -->
+            <polygon id="statArea" class="stat-area"></polygon>
+        </svg>
+    </div>
+</body>
+
+</html>
