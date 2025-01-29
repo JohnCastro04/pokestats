@@ -9,10 +9,44 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: rgb(18, 22, 33);
+            color: white;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #pokemonInput {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid rgb(250, 199, 106);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 200px;
+            background-color: rgb(18, 22, 33);
+            color: white;
+        }
+
+        #pulsado {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(250, 199, 106);
+            color: rgb(18, 22, 33);
+            cursor: pointer;
+        }
+
+        #pulsado:hover {
+            background-color: rgb(255, 230, 183);
         }
 
         .hexagon-container {
@@ -45,14 +79,36 @@
             stroke: #ddd;
             stroke-width: 1.2;
         }
+
+        #pokemonImage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 2px solid rgb(250, 199, 106);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        #pokemonImage img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
     <script src="script.js" defer></script>
 </head>
 
 <body>
-    <input type="text" id="pokemonInput" placeholder="Escribe el nombre o ID">
-    <button id="pulsado">Buscar</button>
-    <br/>
+    <div id="pokemonImage"></div>
+    <div class="search-container">
+        <input type="text" id="pokemonInput" placeholder="Escribe el nombre o ID">
+        <button id="pulsado">Buscar</button>
+    </div>
 
     <div class="hexagon-container">
         <svg viewBox="-120 -120 240 240">
