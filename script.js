@@ -1,38 +1,55 @@
 let pokemon;
-const button = "#pulsado";  
-const input = "#pokemonInput"; 
+const button = "#pulsado";
+const input = "#pokemonInput";
 const statArea = document.querySelector("polygon#statArea");
-console.log(statArea);  
+console.log(statArea);
+
+const handlePokemonSearch = async () => {
+    pokemon = document.querySelector(input).value;
+    const stats = await obtenerEstadisticas(pokemon);
+    const statsFormato = generarStatsFormato(stats, formatoDeseado);
+    const maxStats = Math.max(...Object.values(statsFormato)); // Obtiene el valor máximo
+
+    // Calcular puntos del polígono en función de las estadísticas
+    const calcular = () => {
+        return angles.map((angle, i) => {
+            const statValue = Object.values(statsFormato)[i];
+            const valueRatio = statValue / maxStats;
+            const r = radius * valueRatio;
+            const x = r * Math.sin((angle * Math.PI) / 180);
+            const y = -r * Math.cos((angle * Math.PI) / 180);
+            return `${x},${y}`;
+        }).join(" ");
+    };
+
+    // Dibujar el área de estadísticas
+    statArea.setAttribute("points", calcular());
+
+    // Obtener imagen del pokemon
+    const shinyCheckbox = document.querySelector("#shiny");
+    const valorShiny = shinyCheckbox.checked ? "shiny" : "normal";
+    pokemonImagen = await pokemonFormato(pokemon);
+    const imgContainer = document.querySelector("#pokemonImage");
+    const img = document.createElement("img");
+    img.src = `https://img.pokemondb.net/sprites/home/${valorShiny}/${pokemonImagen}.png`;
+    img.alt = pokemon;
+    imgContainer.innerHTML = ""; // Limpiar cualquier imagen anterior
+    imgContainer.appendChild(img);
+};
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(button).addEventListener("click", async () => {
-        pokemon = document.querySelector(input).value;
-        const stats = await obtenerEstadisticas(pokemon);
-        const statsFormato = generarStatsFormato(stats, formatoDeseado);
-        const maxStats = Math.max(...Object.values(statsFormato)); // Obtiene el valor máximo
+    document.querySelector(button).addEventListener("click", handlePokemonSearch);
+    document.querySelector(input).addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            handlePokemonSearch();
+        }
+    });
 
-        // Calcular puntos del polígono en función de las estadísticas
-        const calcular = () => {
-            return angles.map((angle, i) => {
-                const statValue = Object.values(statsFormato)[i];
-                const valueRatio = statValue / maxStats;
-                const r = radius * valueRatio;
-                const x = r * Math.sin((angle * Math.PI) / 180);
-                const y = -r * Math.cos((angle * Math.PI) / 180);
-                return `${x},${y}`;
-            }).join(" ");
-        };
-
-        // Dibujar el área de estadísticas
-        statArea.setAttribute("points", calcular());
-        // Obtener imagen del pokemon
-        pokemonImagen = await pokemonFormato(pokemon);
-        const imgContainer = document.querySelector("#pokemonImage");
-        const img = document.createElement("img");
-        img.src = `https://img.pokemondb.net/sprites/home/normal/${pokemonImagen}.png`;
-        img.alt = pokemon;
-        imgContainer.innerHTML = ""; // Limpiar cualquier imagen anterior
-        imgContainer.appendChild(img);
+    document.addEventListener("keydown", (event) => {
+        if (event.altKey && (event.key === "s" || event.key === "S")) {
+            const shinyCheckbox = document.querySelector("#shiny");
+            shinyCheckbox.checked = !shinyCheckbox.checked;
+        }
     });
 });
 
