@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Dibujar el área de estadísticas
         statArea.setAttribute("points", calcular());
+        // Obtener imagen del pokemon
+        pokemonImagen = await pokemonFormato(pokemon);
+        const imgContainer = document.querySelector("#pokemonImage");
+        const img = document.createElement("img");
+        img.src = `https://img.pokemondb.net/sprites/home/normal/${pokemonImagen}.png`;
+        img.alt = pokemon;
+        imgContainer.innerHTML = ""; // Limpiar cualquier imagen anterior
+        imgContainer.appendChild(img);
     });
 });
 
@@ -42,6 +50,15 @@ const obtenerEstadisticas = async (pokemon) => {
     };
 
     return stats;
+};
+
+const pokemonFormato = async (pokemon) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+    const data = await response.json();
+
+    const pokemonMinus = data.name.toLowerCase();
+
+    return pokemonMinus;
 };
 
 const formatoDeseado = ["HP", "Ataque", "Defensa", "Velocidad", "Def. Esp.", "At. Esp."];
