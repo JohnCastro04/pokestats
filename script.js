@@ -27,7 +27,6 @@ const handlePokemonSearch = async () => {
         const img = document.createElement("img");
         if (valorShiny == "shiny") {
             img.src = "https://www.sdpnoticias.com/resizer/v2/BQKVYO5VBFGKNMVKLJVXKRZXV4.jpeg?smart=true&auth=eb6f9564402adc93d52cea13ffef7599959ac0976a81a13ac7f7c92750862bfa&width=768&height=1152";
-            alert("¡Perdiste!");
         } else {
             img.src = "https://static.vecteezy.com/system/resources/thumbnails/041/713/515/small_2x/ai-generated-inquisitive-raccoon-with-a-curious-gaze-on-transparent-background-stock-png.png";
         }
