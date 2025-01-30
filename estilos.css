@@ -59,6 +59,13 @@ body {
     fill: rgb(250, 199, 106);
 }
 
+@media (max-width: 600px) {
+    .hexagon-container {
+        width: 300px;
+        height: 300px;
+    }
+}
+
 .stat-area {
     fill: rgb(255, 230, 183);
     fill-opacity: 70%;
@@ -91,6 +98,21 @@ body {
     height: 100%;
     object-fit: cover;
     filter: drop-shadow(2px 2px rgb(250, 199, 106));
+}
+
+#pokemonImage img:hover {
+    animation: .45s bounce;
+    transform-origin: bottom center
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.05, .96)
+    }
 }
 
 input[type="checkbox"] {
