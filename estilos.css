@@ -27,6 +27,12 @@ body {
     color: white;
 }
 
+#pokemonInput:focus {
+    outline: none;
+    border: 2px solid rgb(255, 230, 183);
+
+}
+
 #pulsado, label {
     padding: 10px 20px;
     font-size: 16px;
@@ -91,6 +97,10 @@ body {
     border: 2px solid rgb(250, 199, 106);
     margin-bottom: 20px;
     overflow: hidden;
+}
+
+#pokemonImage:hover {
+    border: 2px solid rgb(255, 230, 183);
 }
 
 #pokemonImage img {
