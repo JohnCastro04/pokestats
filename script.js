@@ -1,19 +1,18 @@
 let pokemon;
-const button = "#pulsado";
-const input = "#pokemonInput";
-const statArea = document.querySelector("polygon#statArea");
-console.log(statArea);
+const boton = "#pulsado";
+const entrada = "#pokemonInput";
+const areaEstadisticas = document.querySelector("polygon#statArea");
+console.log(areaEstadisticas);
 
-const handlePokemonSearch = async () => {
-    pokemon = document.querySelector(input).value;
+const manejarBusquedaPokemon = async () => {
+    pokemon = document.querySelector(entrada).value;
     pokemon = pokemon.toLowerCase().trim();
 
-    const shinyCheckbox = document.querySelector("#shiny");
-    const valorShiny = shinyCheckbox.checked ? "shiny" : "normal";
-
+    const checkboxShiny = document.querySelector("#shiny");
+    const valorShiny = checkboxShiny.checked ? "shiny" : "normal";
 
     if (pokemon === "nerea") {
-        const stats = {
+        const estadisticas = {
             HP: "40",
             Ataque: "65",
             Defensa: "120",
@@ -21,9 +20,9 @@ const handlePokemonSearch = async () => {
             "Def. Esp.": "130",
             Velocidad: "50"
         };
-        const statsFormato = generarStatsFormato(stats, formatoDeseado);
-        const maxStats = Math.max(...Object.values(statsFormato)); // Obtiene el valor máximo
-        const imgContainer = document.querySelector("#pokemonImage");
+        const estadisticasFormato = generarEstadisticasFormato(estadisticas, formatoDeseado);
+        const maxEstadisticas = Math.max(...Object.values(estadisticasFormato)); // Obtiene el valor máximo
+        const contenedorImagen = document.querySelector("#pokemonImage");
         const img = document.createElement("img");
         if (valorShiny == "shiny") {
             img.src = "https://www.sdpnoticias.com/resizer/v2/BQKVYO5VBFGKNMVKLJVXKRZXV4.jpeg?smart=true&auth=eb6f9564402adc93d52cea13ffef7599959ac0976a81a13ac7f7c92750862bfa&width=768&height=1152";
@@ -32,75 +31,130 @@ const handlePokemonSearch = async () => {
         }
 
         img.alt = "Nerea";
-        imgContainer.innerHTML = ""; // Limpiar cualquier imagen anterior
-        imgContainer.appendChild(img);
+        contenedorImagen.innerHTML = ""; // Limpiar cualquier imagen anterior
+        contenedorImagen.appendChild(img);
 
         // Calcular puntos del polígono en función de las estadísticas
         const calcular = () => {
-            return angles.map((angle, i) => {
-                const statValue = Object.values(statsFormato)[i];
-                const valueRatio = statValue / maxStats;
-                const r = radius * valueRatio;
-                const x = r * Math.sin((angle * Math.PI) / 180);
-                const y = -r * Math.cos((angle * Math.PI) / 180);
+            return angulos.map((angulo, i) => {
+                const valorEstadistica = Object.values(estadisticasFormato)[i];
+                const ratioValor = valorEstadistica / maxEstadisticas;
+                const r = radio * ratioValor;
+                const x = r * Math.sin((angulo * Math.PI) / 180);
+                const y = -r * Math.cos((angulo * Math.PI) / 180);
                 return `${x},${y}`;
             }).join(" ");
         };
 
         // Dibujar el área de estadísticas
-        statArea.setAttribute("points", calcular());
+        areaEstadisticas.setAttribute("points", calcular());
+    } else if (pokemon === "matías" || pokemon === "matias") {
+        pokemon = document.querySelector(entrada).value;
+        pokemon = pokemon.toLowerCase().trim();
+    
+        const checkboxShiny = document.querySelector("#shiny");
+        const valorShiny = checkboxShiny.checked ? "shiny" : "normal";
+    
+        if (pokemon === "matías" || pokemon === "matias") {
+            const estadisticas = {
+                HP: "90",
+                Ataque: "75",
+                Defensa: "120",
+                "At. Esp.": "110",
+                "Def. Esp.": "65",
+                Velocidad: "80"
+            };
+            const estadisticasFormato = generarEstadisticasFormato(estadisticas, formatoDeseado);
+            const maxEstadisticas = Math.max(...Object.values(estadisticasFormato)); // Obtiene el valor máximo
+            const contenedorImagen = document.querySelector("#pokemonImage");
+            const img = document.createElement("img");
+            if (valorShiny == "shiny") {
+                img.src = "https://i.pinimg.com/originals/ed/da/5f/edda5fa03fac2bdaaadb159eb0c22dc8.jpg";
+            } else {
+                img.src = "https://png.pngtree.com/png-vector/20230915/ourmid/pngtree-duck-face-frames-animal-face-png-image_10083760.png";
+            }
+    
+            img.alt = "Matías";
+            contenedorImagen.innerHTML = ""; // Limpiar cualquier imagen anterior
+            contenedorImagen.appendChild(img);
+    
+            // Calcular puntos del polígono en función de las estadísticas
+            const calcular = () => {
+                return angulos.map((angulo, i) => {
+                    const valorEstadistica = Object.values(estadisticasFormato)[i];
+                    const ratioValor = valorEstadistica / maxEstadisticas;
+                    const r = radio * ratioValor;
+                    const x = r * Math.sin((angulo * Math.PI) / 180);
+                    const y = -r * Math.cos((angulo * Math.PI) / 180);
+                    return `${x},${y}`;
+                }).join(" ");
+            };
+    
+            // Dibujar el área de estadísticas
+            areaEstadisticas.setAttribute("points", calcular());
+        }
     } else {
-        const stats = await obtenerEstadisticas(pokemon);
-        const statsFormato = generarStatsFormato(stats, formatoDeseado);
-        const maxStats = Math.max(...Object.values(statsFormato)); // Obtiene el valor máximo
+        try {
+            const estadisticas = await obtenerEstadisticas(pokemon);
+            const estadisticasFormato = generarEstadisticasFormato(estadisticas, formatoDeseado);
+            const maxEstadisticas = Math.max(...Object.values(estadisticasFormato)); // Obtiene el valor máximo
 
-        // Calcular puntos del polígono en función de las estadísticas
-        const calcular = () => {
-            return angles.map((angle, i) => {
-                const statValue = Object.values(statsFormato)[i];
-                const valueRatio = statValue / maxStats;
-                const r = radius * valueRatio;
-                const x = r * Math.sin((angle * Math.PI) / 180);
-                const y = -r * Math.cos((angle * Math.PI) / 180);
-                return `${x},${y}`;
-            }).join(" ");
-        };
+            // Calcular puntos del polígono en función de las estadísticas
+            const calcular = () => {
+                return angulos.map((angulo, i) => {
+                    const valorEstadistica = Object.values(estadisticasFormato)[i];
+                    const ratioValor = valorEstadistica / maxEstadisticas;
+                    const r = radio * ratioValor;
+                    const x = r * Math.sin((angulo * Math.PI) / 180);
+                    const y = -r * Math.cos((angulo * Math.PI) / 180);
+                    return `${x},${y}`;
+                }).join(" ");
+            };
 
-        // Dibujar el área de estadísticas
-        statArea.setAttribute("points", calcular());
+            // Dibujar el área de estadísticas
+            areaEstadisticas.setAttribute("points", calcular());
 
-        // Obtener imagen del pokemon
-        pokemonImagen = await pokemonFormato(pokemon);
-        const imgContainer = document.querySelector("#pokemonImage");
-        const img = document.createElement("img");
-        img.src = `https://img.pokemondb.net/sprites/home/${valorShiny}/${pokemonImagen}.png`;
-        img.alt = pokemon;
-        imgContainer.innerHTML = ""; // Limpiar cualquier imagen anterior
-        imgContainer.appendChild(img);
+            // Obtener imagen del pokemon
+            imagenPokemon = await formatoPokemon(pokemon);
+            const contenedorImagen = document.querySelector("#pokemonImage");
+            const img = document.createElement("img");
+            img.src = `https://img.pokemondb.net/sprites/home/${valorShiny}/${imagenPokemon}.png`;
+            img.alt = pokemon;
+            contenedorImagen.innerHTML = ""; // Limpiar cualquier imagen anterior
+            contenedorImagen.appendChild(img);
+        } catch (error) {
+            alert("No se encontró el Pokémon o está mal introducido.");
+        }
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector(button).addEventListener("click", handlePokemonSearch);
-    document.querySelector(input).addEventListener("keydown", (event) => {
+    document.querySelector(boton).addEventListener("click", manejarBusquedaPokemon);
+    document.querySelector(entrada).addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
-            handlePokemonSearch();
+            manejarBusquedaPokemon();
         }
     });
 
     document.addEventListener("keydown", (event) => {
         if (event.altKey && (event.key === "s" || event.key === "S")) {
-            const shinyCheckbox = document.querySelector("#shiny");
-            shinyCheckbox.checked = !shinyCheckbox.checked;
+            const checkboxShiny = document.querySelector("#shiny");
+            checkboxShiny.checked = !checkboxShiny.checked;
         }
     });
+
+    const checkboxShiny = document.querySelector("#shiny");
+    checkboxShiny.addEventListener("change", manejarBusquedaPokemon); // Añadir eventListener al checkbox
 });
 
 const obtenerEstadisticas = async (pokemon) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+    if (!response.ok) {
+        throw new Error("Pokémon no encontrado");
+    }
     const data = await response.json();
 
-    const stats = {
+    const estadisticas = {
         HP: data.stats[0].base_stat,
         Ataque: data.stats[1].base_stat,
         Defensa: data.stats[2].base_stat,
@@ -109,11 +163,14 @@ const obtenerEstadisticas = async (pokemon) => {
         Velocidad: data.stats[5].base_stat
     };
 
-    return stats;
+    return estadisticas;
 };
 
-const pokemonFormato = async (pokemon) => {
+const formatoPokemon = async (pokemon) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+    if (!response.ok) {
+        throw new Error("Pokémon no encontrado");
+    }
     const data = await response.json();
 
     const pokemonMinus = data.name.toLowerCase();
@@ -124,11 +181,11 @@ const pokemonFormato = async (pokemon) => {
 const formatoDeseado = ["HP", "Ataque", "Defensa", "Velocidad", "Def. Esp.", "At. Esp."];
 
 // Método para reordenar stats según el orden especificado
-const generarStatsFormato = (stats, orden) => {
+const generarEstadisticasFormato = (estadisticas, orden) => {
     return Object.fromEntries(
-        orden.map((key) => [key, stats[key]])
+        orden.map((key) => [key, estadisticas[key]])
     );
 };
 
-const angles = [0, 60, 120, 180, 240, 300]; // Ángulos de cada punto del hexágono
-const radius = 90; // Radio del hexágono
+const angulos = [0, 60, 120, 180, 240, 300]; // Ángulos de cada punto del hexágono
+const radio = 90; // Radio del hexágono
